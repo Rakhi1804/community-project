@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sir Kasturchand Daga Bal Sadan, Kamptee | Orphanage & Children's Home{% endblock %}</title>
+    <!-- Meta SEO -->
+    <meta name="description" content="Official website for Sir Kasturchand Daga Bal Sadan in Lakad Ganj, Kamptee, Maharashtra 441001. Supporting underprivileged children with shelter, education, and nutrition. Snack donations welcomed Monday to Saturday 3 PM onwards.">
+    <meta name="keywords" content="Sir Kasturchand Daga Bal Sadan, Kamptee Orphanage, Bal Sadan Kamptee, Nagpur Orphanage, Snack Donation Kamptee, Donate to Children Kamptee">
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-announcement-bar py-2">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center text-white small">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-warning text-dark fw-bold px-2 py-1 pulse-badge">
+                    <i class="fa-solid fa-bell me-1"></i> NOTICE
+                </span>
+                <span class="fw-medium announcement-text">
+                    <strong>Snack Donations & Visits:</strong> Monday to Saturday from <strong>3:00 PM onwards</strong> | Office opens 11:00 AM
+                </span>
+            </div>
+            <div class="d-flex align-items-center gap-3 mt-1 mt-md-0">
+                <a href="tel:{{ org_phone }}" class="text-white text-decoration-none hover-underline">
+                    <i class="fa-solid fa-phone me-1"></i> {{ org_phone_display }}
+                </a>
+                <span class="opacity-50">|</span>
+                <a href="https://wa.me/917709558334?text=Hello%20Sir%20Kasturchand%20Daga%20Bal%20Sadan,%20I%20would%20like%20to%20know%20more%20about%20donating%20snacks" target="_blank" class="text-white text-decoration-none hover-underline">
+                    <i class="fa-brands fa-whatsapp text-success-light me-1"></i> WhatsApp
+                </a>
+                <span class="opacity-50">|</span>
+                <span class="d-none d-lg-inline text-white-50">
+                    <i class="fa-solid fa-location-dot me-1"></i> Lakad Ganj, Kamptee 441001
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top main-navbar shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+                <div class="brand-logo-icon">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <div>
+                    <span class="brand-name d-block">Sir Kasturchand Daga Bal Sadan</span>
+                    <span class="brand-subtext d-block">Orphanage & Children's Home • Kamptee, Maharashtra</span>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-1 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link special-nav-link {% if request.endpoint == 'donate_snacks' %}active{% endif %}" href="{{ url_for('donate_snacks') }}">
+                            <i class="fa-solid fa-cookie-bite me-1 text-accent"></i> Donate Snacks (3 PM+)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'donate' %}active{% endif %}" href="{{ url_for('donate') }}">
+                            <i class="fa-solid fa-hand-holding-heart me-1"></i> Ways to Donate
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ai-nav-pill {% if request.endpoint == 'ai_assistant_page' %}active{% endif %}" href="{{ url_for('ai_assistant_page') }}">
+                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Assistant & Planner
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'volunteer' %}active{% endif %}" href="{{ url_for('volunteer') }}">
+                            <i class="fa-solid fa-user-plus me-1"></i> Volunteer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">
+                            <i class="fa-solid fa-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-primary-custom btn-sm px-3 shadow-sm rounded-pill" href="{{ url_for('donate_snacks') }}">
+                            <i class="fa-solid fa-gift me-1"></i> Sponsor Snacks
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-1 mt-2 mt-lg-0">
+                        <button type="button" class="btn btn-success btn-sm px-3 shadow-sm rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#whatsappShareModal">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Share on WhatsApp
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                        <div class="d-flex align-items-center gap-2">
+                            {% if category == 'success' %}
+                                <i class="fa-solid fa-circle-check fs-5 text-success"></i>
+                            {% elif category == 'danger' %}
+                                <i class="fa-solid fa-circle-exclamation fs-5 text-danger"></i>
+                            {% else %}
+                                <i class="fa-solid fa-circle-info fs-5 text-primary"></i>
+                            {% endif %}
+                            <div>{{ message }}</div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content Block -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Floating AI Mitra Assistant Widget -->
+    <div class="floating-ai-container">
+        <!-- Floating Chat Popup -->
+        <div class="ai-chat-window shadow-lg d-none" id="aiChatWindow">
+            <div class="ai-chat-header d-flex justify-content-between align-items-center p-3 text-white">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="ai-avatar-badge">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Mitra • Bal Sadan AI Guide</h6>
+                        <small class="text-white-50">Online • Ask about snacks, visits, donations</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" id="closeAiChatBtn"></button>
+            </div>
+            
+            <div class="ai-chat-body p-3" id="aiChatMessages">
+                <div class="ai-bubble incoming">
+                    <p class="mb-1"><strong>Namaste! 🙏</strong> I am <strong>Mitra</strong>, the AI assistant for <em>Sir Kasturchand Daga Bal Sadan, Kamptee</em>.</p>
+                    <p class="mb-0 small text-muted">Did you know? You can donate evening snacks for our 45 children <strong>Monday to Saturday from 3:00 PM onwards</strong>!</p>
+                </div>
+                <!-- Suggested Quick Pills -->
+                <div class="quick-pills mt-2 d-flex flex-wrap gap-1" id="quickPills">
+                    <button class="badge rounded-pill text-dark border bg-light quick-query-btn" data-query="What snacks can I donate for children?">🥪 What snacks can I donate?</button>
+                    <button class="badge rounded-pill text-dark border bg-light quick-query-btn" data-query="When can I visit to give snacks?">🕒 Snack donation timings</button>
+                    <button class="badge rounded-pill text-dark border bg-light quick-query-btn" data-query="How to reach Bal Sadan in Lakad Ganj Kamptee?">📍 Where is Bal Sadan located?</button>
+                    <button class="badge rounded-pill text-dark border bg-light quick-query-btn" data-query="Can I celebrate my birthday with the kids?">🎂 Celebrate birthday here</button>
+                </div>
+            </div>
+
+            <div class="ai-chat-footer p-2 border-top bg-light">
+                <form id="aiChatForm" class="d-flex gap-2">
+                    <input type="text" id="aiUserInput" class="form-control form-control-sm rounded-pill" placeholder="Type in English, Hindi, or Marathi..." autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary-custom btn-sm rounded-circle px-3">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Floating Button Trigger -->
+        <button class="floating-ai-btn shadow-lg" id="toggleAiChatBtn" title="Chat with Bal Sadan AI Guide">
+            <span class="ai-badge-pulse"></span>
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span class="floating-btn-text d-none d-md-inline ms-1">Ask AI</span>
+        </button>
+    </div>
+
+    <!-- Main Footer -->
+    <footer class="footer-custom pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Col 1: About -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="brand-logo-icon small-icon">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <h5 class="text-white mb-0 fw-bold">Sir Kasturchand Daga Bal Sadan</h5>
+                    </div>
+                    <p class="text-light-muted small leading-relaxed">
+                        Dedicated to providing loving shelter, nutritious food, healthcare, and quality schooling for destitute and orphan children in Lakad Ganj, Kamptee, Maharashtra.
+                    </p>
+                    <div class="alert alert-dark border-secondary p-2 small mt-2">
+                        <strong class="text-warning"><i class="fa-solid fa-clock me-1"></i> Snack Donation Hours:</strong><br>
+                        Monday to Saturday: <strong>3:00 PM onwards</strong><br>
+                        Office opens at 11:00 AM daily.
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="text-white fw-bold mb-3 border-bottom pb-2 border-secondary">Quick Links</h6>
+                    <ul class="list-unstyled footer-links small">
+                        <li><a href="{{ url_for('home') }}"><i class="fa-solid fa-angle-right me-1"></i> Home</a></li>
+                        <li><a href="{{ url_for('donate_snacks') }}"><i class="fa-solid fa-angle-right me-1"></i> Donate Snacks</a></li>
+                        <li><a href="{{ url_for('donate') }}"><i class="fa-solid fa-angle-right me-1"></i> Ways to Donate</a></li>
+                        <li><a href="{{ url_for('ai_assistant_page') }}"><i class="fa-solid fa-angle-right me-1"></i> AI Meal Planner</a></li>
+                        <li><a href="{{ url_for('volunteer') }}"><i class="fa-solid fa-angle-right me-1"></i> Volunteer Program</a></li>
+                        <li><a href="{{ url_for('contact') }}"><i class="fa-solid fa-angle-right me-1"></i> Contact & Directions</a></li>
+                        <li><a href="{{ url_for('admin') }}"><i class="fa-solid fa-shield-halved me-1"></i> Admin Portal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Visit & Snack Guidelines -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="text-white fw-bold mb-3 border-bottom pb-2 border-secondary">Snack Guidelines</h6>
+                    <ul class="list-unstyled text-light-muted small">
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Fresh fruits (Bananas, Apples)</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Nutritious packaged biscuits & cakes</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Hot evening snacks (Poha, Sandwiches)</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Fruit juices & flavored milk</li>
+                        <li class="mb-2"><i class="fa-solid fa-triangle-exclamation text-warning me-2"></i>Kindly bring items after 3 PM</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact & Location -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="text-white fw-bold mb-3 border-bottom pb-2 border-secondary">Get in Touch</h6>
+                    <div class="contact-info-list small text-light-muted">
+                        <p class="mb-2">
+                            <i class="fa-solid fa-location-dot text-danger me-2"></i>
+                            <strong>Lakad Ganj, Kamptee, Maharashtra 441001</strong>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fa-solid fa-phone text-accent me-2"></i>
+                            <a href="tel:{{ org_phone }}" class="text-white text-decoration-none"><strong>{{ org_phone_display }}</strong></a>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fa-brands fa-whatsapp text-success me-2"></i>
+                            <a href="https://wa.me/917709558334" target="_blank" class="text-white text-decoration-none">Chat on WhatsApp</a>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fa-solid fa-train text-info me-2"></i>
+                            1.5 km from Kamptee Railway Station
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center small text-light-muted">
+                <div>
+                    © 2026 <strong>Sir Kasturchand Daga Bal Sadan</strong>, Kamptee. All Rights Reserved.
+                </div>
+                <div class="mt-2 mt-md-0">
+                    <span class="badge bg-secondary-subtle text-light border border-secondary px-2 py-1">
+                        <i class="fa-solid fa-heart text-danger me-1"></i> Dedicated to Child Welfare & Education
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Share Modal -->
+    <div class="modal fade" id="whatsappShareModal" tabindex="-1" aria-labelledby="whatsappShareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fw-bold" id="whatsappShareModalLabel">
+                        <i class="fa-brands fa-whatsapp me-2"></i> Share Bal Sadan on WhatsApp
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="small text-muted mb-3">
+                        Help our 45 children by sharing this appeal with your family, society groups, and friends on WhatsApp!
+                    </p>
+
+                    <div class="card bg-light border p-3 rounded-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong class="small text-dark"><i class="fa-solid fa-message me-1 text-success"></i> WhatsApp Message:</strong>
+                            <button class="btn btn-outline-secondary btn-sm py-0 px-2 rounded-pill" onclick="copyWhatsAppMessage()">
+                                <i class="fa-solid fa-copy me-1"></i> <span id="copyBtnText">Copy Text</span>
+                            </button>
+                        </div>
+                        <div class="small text-secondary font-monospace" id="waMessageText" style="white-space: pre-line; font-size: 12px;">🌸 *Sir Kasturchand Daga Bal Sadan, Kamptee* 🌸
+Orphanage & Children's Home (Lakad Ganj, Kamptee, Maharashtra 441001)
+
+📢 *Donation Appeal for Children:*
+"Donation towards children like snacks is welcomed *Monday to Saturday from 3:00 PM onwards*."
+
+🥪 Sponsor evening snacks, fresh fruits, or celebrate a birthday with 45 beloved children!
+📞 Helpline: 077095 58334
+
+👉 Visit & Donate online:
+https://c524a8008e94d9.lhr.life</div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a href="https://api.whatsapp.com/send?text=%F0%9F%8C%B8%20*Sir%20Kasturchand%20Daga%20Bal%20Sadan%2C%20Kamptee*%20%F0%9F%8C%B8%0AOrphanage%20%26%20Children's%20Home%20(Lakad%20Ganj%2C%20Kamptee%2C%20Maharashtra%20441001)%0A%0A%F0%9F%93%A2%20*Donation%20Appeal%20for%20Children%3A*%0A%22Donation%20towards%20children%20like%20snacks%20is%20welcomed%20*Monday%20to%20Saturday%20from%203%3A00%20PM%20onwards*.%22%0A%0A%F0%9F%A5%AA%20Sponsor%20evening%20snacks%2C%20fresh%20fruits%2C%20or%20celebrate%20a%20birthday%20with%2045%20beloved%20children!%0A%F0%9F%93%9E%20Contact%3A%20077095%2058334%0A%0A%F0%9F%91%89%20Visit%20%26%20Donate%20online%3A%0Ahttps%3A%2F%2Fc524a8008e94d9.lhr.life" target="_blank" class="btn btn-success btn-lg rounded-pill fw-bold py-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp me-2 fs-5"></i> Click to Open WhatsApp & Share
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai-chat.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

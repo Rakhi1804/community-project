@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+
+{% block title %}Bal Sadan AI Assistant & Snack Planner | Sir Kasturchand Daga Bal Sadan{% endblock %}
+
+{% block content %}
+<div class="bg-primary-custom text-white py-5">
+    <div class="container text-center">
+        <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> ARTIFICIAL INTELLIGENCE SUITE
+        </span>
+        <h1 class="display-5 fw-extrabold mb-3">Mitra AI: Smart Orphanage Companion</h1>
+        <p class="lead opacity-90 mx-auto" style="max-width: 720px;">
+            Designed specifically for Sir Kasturchand Daga Bal Sadan, Kamptee. Get instant answers about timings, snack donations from 3 PM onwards, calculate nutritious meal menus, and generate gratitude blessings.
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- Top Feature Tabs -->
+    <ul class="nav nav-pills justify-content-center mb-5 gap-2" id="aiTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active px-4 py-2 rounded-pill fw-bold" id="chat-tab" data-bs-toggle="pill" data-bs-target="#chat-pane" type="button">
+                <i class="fa-solid fa-comments me-2"></i> Chat with Mitra AI
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-2 rounded-pill fw-bold" id="planner-tab" data-bs-toggle="pill" data-bs-target="#planner-pane" type="button">
+                <i class="fa-solid fa-calculator me-2"></i> AI Snack & Meal Planner
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link px-4 py-2 rounded-pill fw-bold" id="blessing-tab" data-bs-toggle="pill" data-bs-target="#blessing-pane" type="button">
+                <i class="fa-solid fa-heart me-2"></i> AI Blessing Generator
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="aiTabContent">
+        <!-- 1. Chat Tab -->
+        <div class="tab-pane fade show active" id="chat-pane" role="tabpanel">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+                        <div class="p-3 bg-navy text-white d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="ai-avatar-badge">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0 fw-bold">Mitra • Orphanage AI Companion</h5>
+                                    <small class="text-white-50">Trained on Lakad Ganj, Kamptee campus information</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                <i class="fa-solid fa-circle fa-2xs me-1"></i> Active
+                            </span>
+                        </div>
+
+                        <!-- Chat Conversation Container -->
+                        <div class="p-4 bg-light" id="fullChatMessages" style="height: 420px; overflow-y: auto;">
+                            <div class="ai-bubble incoming mb-3">
+                                <h6 class="fw-bold mb-1 text-primary">Namaste! Welcome to Sir Kasturchand Daga Bal Sadan 🙏</h6>
+                                <p class="mb-1 text-dark small leading-relaxed">
+                                    I am your intelligent assistant. I can answer questions about our Kamptee orphanage, the afternoon snack donation drive (Monday-Saturday from 3:00 PM onwards), booking visits, celebrating birthdays, and donation options.
+                                </p>
+                                <span class="badge bg-white text-muted border small">Speaks English, Hindi & Marathi</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Query Suggestions -->
+                        <div class="p-3 border-top bg-white">
+                            <small class="text-muted fw-semibold d-block mb-2">Frequently Asked Inquiries:</small>
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill full-query-btn" data-query="What is the snack donation policy and timing?">
+                                    🥪 Snack donation rules (3 PM+)
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill full-query-btn" data-query="How to reach Lakad Ganj in Kamptee?">
+                                    📍 How to reach Bal Sadan
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill full-query-btn" data-query="Can I celebrate my child's birthday with the 45 children?">
+                                    🎂 Birthday celebration guidelines
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill full-query-btn" data-query="बच्चों के लिए नाश्ता कब दे सकते हैं?">
+                                    🇮🇳 बच्चों के लिए नाश्ता कब दें?
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Box -->
+                        <div class="p-3 border-top bg-light">
+                            <form id="fullChatForm" class="d-flex gap-2">
+                                <input type="text" id="fullUserInput" class="form-control rounded-pill px-3" placeholder="Ask a question about Sir Kasturchand Daga Bal Sadan..." required>
+                                <button type="submit" class="btn btn-primary-custom rounded-pill px-4 fw-bold">
+                                    <i class="fa-solid fa-paper-plane me-1"></i> Send
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. AI Snack & Meal Planner Tab -->
+        <div class="tab-pane fade" id="planner-pane" role="tabpanel">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="icon-circle bg-warning-subtle text-warning">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-0">Snack & Budget Calculator</h5>
+                        </div>
+                        <p class="small text-muted mb-4">
+                            Input your preferences and our AI will calculate a balanced, hygienic snack menu tailored to the nutritional needs of the children.
+                        </p>
+
+                        <form id="snackPlannerForm">
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Number of Children</label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <input type="range" class="form-range flex-grow-1" id="childCountRange" min="10" max="60" value="45">
+                                    <span class="badge bg-primary fs-6 px-3 py-2 rounded-pill" id="childCountDisplay">45 Kids</span>
+                                </div>
+                                <small class="text-muted">Total currently sheltered in Kamptee: <strong>45 children</strong></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Occasion</label>
+                                <select class="form-select" id="plannerOccasion">
+                                    <option value="Birthday Celebration" selected>Birthday Celebration</option>
+                                    <option value="Afternoon Snack Routine">Routine Evening Refreshment</option>
+                                    <option value="Wedding Anniversary">Wedding Anniversary</option>
+                                    <option value="Festival / Special Day">Festival / Holiday Special</option>
+                                    <option value="In Memory of Loved One">In Loving Memory</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-semibold">Total Budget (Optional - Leave blank for smart estimate)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="plannerBudget" placeholder="Auto-calculated (e.g. ₹2,700)">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary-custom w-100 rounded-pill py-2 fw-bold shadow-sm" id="generatePlanBtn">
+                                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate AI Menu Plan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100" id="plannerResultCard">
+                        <div class="text-center py-5" id="plannerEmptyState">
+                            <i class="fa-solid fa-cookie-bite display-3 text-warning opacity-50 mb-3"></i>
+                            <h5 class="fw-bold text-dark">Ready to Plan Children's Snacks!</h5>
+                            <p class="text-muted small mx-auto" style="max-width: 400px;">
+                                Click "Generate AI Menu Plan" to calculate a balanced, tasty menu with estimated cost per child and delivery guidelines for the 3:00 PM slot.
+                            </p>
+                        </div>
+
+                        <!-- Active Plan Output Container -->
+                        <div class="d-none" id="plannerActiveOutput">
+                            <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
+                                <div>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-1" id="planTierBadge">
+                                        Deluxe Plan
+                                    </span>
+                                    <h4 class="fw-bold text-dark mb-0" id="planOccasionTitle">Birthday Celebration</h4>
+                                    <small class="text-muted" id="planTargetKids">Prepared for 45 Children</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="display-6 fw-bold text-primary" id="planTotalCost">₹2,925</span>
+                                    <small class="text-muted d-block" id="planPerChildCost">~₹65 per child</small>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning border-warning small mb-3">
+                                <strong><i class="fa-solid fa-clock me-1"></i> Recommended Serving Window:</strong>
+                                <span id="planTimingNotice">Monday to Saturday, 3:00 PM to 4:30 PM</span>
+                            </div>
+
+                            <h6 class="fw-bold text-dark mb-2">Recommended Menu Items:</h6>
+                            <ul class="list-group list-group-flush mb-3 border rounded-3 small" id="planMenuItemsList">
+                                <!-- Populated by JS -->
+                            </ul>
+
+                            <div class="p-3 bg-light rounded-3 mb-3 small">
+                                <strong class="text-dark d-block mb-1"><i class="fa-solid fa-heart-pulse text-danger me-1"></i> Nutrition Benefit:</strong>
+                                <span class="text-muted" id="planNutritionText">High protein & natural vitamins.</span>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('donate_snacks') }}" class="btn btn-warning text-dark fw-bold rounded-pill flex-grow-1">
+                                    <i class="fa-solid fa-calendar-check me-1"></i> Book This Slot (3 PM+)
+                                </a>
+                                <a href="{{ url_for('donate') }}" class="btn btn-outline-primary rounded-pill">
+                                    Sponsor via Online Donation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. AI Blessing Generator Tab -->
+        <div class="tab-pane fade" id="blessing-pane" role="tabpanel">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                        <div class="text-center mb-4">
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill mb-2">
+                                <i class="fa-solid fa-envelope-open-text me-1"></i> PERSONALIZED GRATITUDE
+                            </span>
+                            <h4 class="fw-bold text-dark">AI Blessing & Gratitude Letter Generator</h4>
+                            <p class="text-muted small mx-auto" style="max-width: 550px;">
+                                Receive a customized, warm prayer and blessing letter composed on behalf of the children and management of Sir Kasturchand Daga Bal Sadan.
+                            </p>
+                        </div>
+
+                        <form id="blessingForm" class="mb-4">
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-semibold">Your Name / Family Name</label>
+                                    <input type="text" id="blessingDonorName" class="form-control" placeholder="e.g. Ramesh & Sunita Verma" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-semibold">Special Occasion</label>
+                                    <input type="text" id="blessingOccasion" class="form-control" placeholder="e.g. Aarav's 8th Birthday">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Support Category</label>
+                                <select class="form-select" id="blessingCategory">
+                                    <option value="Afternoon Snacks & Fruits" selected>Afternoon Snacks & Fruits</option>
+                                    <option value="Birthday Meal Feast">Birthday Special Meal</option>
+                                    <option value="School Books & Education">School Education & Books</option>
+                                    <option value="General Bal Sadan Care">General Child Welfare</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100 rounded-pill py-2 fw-bold shadow-sm">
+                                <i class="fa-solid fa-feather me-1"></i> Generate Personalized Blessing Letter
+                            </button>
+                        </form>
+
+                        <!-- Blessing Output -->
+                        <div class="d-none border rounded-4 p-4 bg-light position-relative" id="blessingOutputContainer">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-navy mb-0"><i class="fa-solid fa-scroll text-primary me-2"></i>Official Letter of Blessing</h6>
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.print()">
+                                    <i class="fa-solid fa-print me-1"></i> Print Letter
+                                </button>
+                            </div>
+                            <div class="p-3 bg-white rounded-3 border small text-secondary leading-relaxed font-monospace" id="blessingLetterText" style="white-space: pre-line;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Child count slider sync
+    const childRange = document.getElementById('childCountRange');
+    const childDisplay = document.getElementById('childCountDisplay');
+    if (childRange && childDisplay) {
+        childRange.addEventListener('input', function() {
+            childDisplay.textContent = `${this.value} Kids`;
+        });
+    }
+
+    // Full Chat Form
+    const fullChatForm = document.getElementById('fullChatForm');
+    const fullUserInput = document.getElementById('fullUserInput');
+    const fullChatMessages = document.getElementById('fullChatMessages');
+
+    function appendMessage(sender, text, isAi = false) {
+        const div = document.createElement('div');
+        div.className = `ai-bubble ${isAi ? 'incoming' : 'outgoing text-end ms-auto'} mb-3`;
+        div.innerHTML = `<p class="mb-0 small leading-relaxed" style="white-space: pre-line;">${text}</p>`;
+        fullChatMessages.appendChild(div);
+        fullChatMessages.scrollTop = fullChatMessages.scrollHeight;
+    }
+
+    if (fullChatForm) {
+        fullChatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = fullUserInput.value.trim();
+            if (!query) return;
+
+            appendMessage('user', query, false);
+            fullUserInput.value = '';
+
+            fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({query: query})
+            })
+            .then(res => res.json())
+            .then(data => {
+                appendMessage('ai', data.reply, true);
+            })
+            .catch(err => {
+                appendMessage('ai', 'Thank you for contacting Sir Kasturchand Daga Bal Sadan. Please feel free to call our Lakad Ganj office at 077095 58334.', true);
+            });
+        });
+    }
+
+    // Quick queries
+    document.querySelectorAll('.full-query-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            fullUserInput.value = this.getAttribute('data-query');
+            fullChatForm.dispatchEvent(new Event('submit'));
+        });
+    });
+
+    // Snack Planner Form
+    const snackPlannerForm = document.getElementById('snackPlannerForm');
+    if (snackPlannerForm) {
+        snackPlannerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const childCount = childRange.value;
+            const occasion = document.getElementById('plannerOccasion').value;
+            const budget = document.getElementById('plannerBudget').value;
+
+            fetch('/api/ai/plan-snack', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({child_count: childCount, occasion: occasion, budget: budget})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('plannerEmptyState').classList.add('d-none');
+                document.getElementById('plannerActiveOutput').classList.remove('d-none');
+
+                document.getElementById('planTierBadge').textContent = data.tier;
+                document.getElementById('planOccasionTitle').textContent = data.occasion;
+                document.getElementById('planTargetKids').textContent = `Tailored for ${data.child_count} Children`;
+                document.getElementById('planTotalCost').textContent = data.estimated_total_cost;
+                document.getElementById('planPerChildCost').textContent = `~${data.cost_per_child} per child`;
+                document.getElementById('planTimingNotice').textContent = data.recommended_timing;
+                document.getElementById('planNutritionText').textContent = data.nutrition_highlight;
+
+                const menuList = document.getElementById('planMenuItemsList');
+                menuList.innerHTML = '';
+                data.menu_items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item bg-transparent d-flex align-items-center gap-2';
+                    li.innerHTML = `<i class="fa-solid fa-circle-check text-success"></i> ${item}`;
+                    menuList.appendChild(li);
+                });
+            });
+        });
+    }
+
+    // Blessing Form
+    const blessingForm = document.getElementById('blessingForm');
+    if (blessingForm) {
+        blessingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const donorName = document.getElementById('blessingDonorName').value;
+            const occasion = document.getElementById('blessingOccasion').value;
+            const category = document.getElementById('blessingCategory').value;
+
+            fetch('/api/ai/blessing', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({donor_name: donorName, occasion: occasion, category: category})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('blessingOutputContainer').classList.remove('d-none');
+                document.getElementById('blessingLetterText').textContent = data.letter;
+            });
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Donation Receipt #{{ donation.receipt_no }} | Sir Kasturchand Daga Bal Sadan{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Action Bar -->
+            <div class="d-flex justify-content-between align-items-center mb-4 d-print-none">
+                <a href="{{ url_for('donate') }}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Make Another Donation
+                </a>
+                <button onclick="window.print()" class="btn btn-primary-custom btn-sm rounded-pill px-3 shadow-sm">
+                    <i class="fa-solid fa-print me-1"></i> Print / Save as PDF
+                </button>
+            </div>
+
+            <!-- Receipt Container Paper Style -->
+            <div class="receipt-paper card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white position-relative overflow-hidden">
+                <!-- Verified Watermark / Stamp -->
+                <div class="receipt-stamp-badge position-absolute top-0 end-0 m-4 text-center">
+                    <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill fw-bold">
+                        <i class="fa-solid fa-circle-check me-1"></i> OFFICIAL RECEIPT
+                    </span>
+                </div>
+
+                <!-- Header -->
+                <div class="border-bottom pb-4 mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="brand-logo-icon">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-extrabold text-navy mb-0">Sir Kasturchand Daga Bal Sadan</h3>
+                            <p class="text-secondary small mb-0">Orphanage & Children's Home • Established Kamptee Sanctuary</p>
+                            <p class="text-muted small mb-0">Lakad Ganj, Kamptee, Maharashtra 441001 | Phone: 077095 58334</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipt Metadata -->
+                <div class="row g-3 mb-4 bg-light p-3 rounded-3 border">
+                    <div class="col-sm-6">
+                        <small class="text-muted d-block text-uppercase fw-semibold">Receipt Number</small>
+                        <strong class="text-primary font-monospace fs-5">{{ donation.receipt_no }}</strong>
+                    </div>
+                    <div class="col-sm-6 text-sm-end">
+                        <small class="text-muted d-block text-uppercase fw-semibold">Date of Issuance</small>
+                        <strong class="text-dark">{{ donation.created_at }}</strong>
+                    </div>
+                </div>
+
+                <!-- Donor & Contribution Particulars -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-dark text-uppercase border-bottom pb-2 mb-3">Received with Heartfelt Thanks From:</h6>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <span class="text-muted small d-block">Donor Name:</span>
+                            <h5 class="fw-bold text-dark mb-1">{{ donation.donor_name }}</h5>
+                            {% if donation.phone %}
+                            <span class="text-muted small d-block">Phone: {{ donation.phone }}</span>
+                            {% endif %}
+                            {% if donation.email %}
+                            <span class="text-muted small d-block">Email: {{ donation.email }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-6 text-sm-end">
+                            <span class="text-muted small d-block">Contribution Amount:</span>
+                            <h3 class="fw-extrabold text-success mb-1">₹{{ "{:,.2f}".format(donation.amount) }}</h3>
+                            <span class="badge bg-light text-dark border">Method: {{ donation.payment_method }}</span>
+                            <span class="badge bg-success text-white ms-1">{{ donation.status }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered small">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Category / Purpose</th>
+                                <th>Occasion / Reference</th>
+                                <th>Item / Note</th>
+                                <th class="text-end">Amount (INR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold text-primary">{{ donation.category }}</td>
+                                <td>{{ donation.occasion or 'General Support' }}</td>
+                                <td>{{ donation.item_description or 'Donation for Bal Sadan Children' }}</td>
+                                <td class="text-end fw-bold">₹{{ "{:,.2f}".format(donation.amount) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- AI Generated Blessing & Gratitude Note -->
+                {% if donation.blessing_message %}
+                <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-4">
+                    <h6 class="fw-bold text-dark mb-1">
+                        <i class="fa-solid fa-heart text-danger me-1"></i> A Message of Gratitude from the Children:
+                    </h6>
+                    <p class="small text-secondary mb-0 fst-italic" style="white-space: pre-line;">
+                        {{ donation.blessing_message }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- Footer Signatures -->
+                <div class="row align-items-end pt-4 border-top mt-4">
+                    <div class="col-6">
+                        <small class="text-muted d-block">Visiting & Snack Donation Reminder:</small>
+                        <small class="text-secondary fw-semibold">Monday to Saturday: 3:00 PM onwards</small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div class="signature-line mx-auto ms-auto" style="width: 150px; border-bottom: 1px dashed #666;"></div>
+                        <small class="text-dark fw-bold d-block mt-1">Authorized Signatory</small>
+                        <small class="text-muted" style="font-size: 11px;">Sir Kasturchand Daga Bal Sadan, Kamptee</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %}Donate & Sponsor | Sir Kasturchand Daga Bal Sadan, Kamptee{% endblock %}
+
+{% block content %}
+<div class="bg-primary-custom text-white py-5">
+    <div class="container text-center">
+        <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fa-solid fa-heart me-1"></i> SUPPORT BAL SADAN CHILDREN
+        </span>
+        <h1 class="display-5 fw-extrabold mb-3">Make a Life-Changing Contribution</h1>
+        <p class="lead opacity-90 mx-auto" style="max-width: 700px;">
+            Your generosity provides daily nutritious snacks, wholesome meals, textbooks, and loving shelter for 45 children at Lakad Ganj, Kamptee.
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Left Column: Donation Form -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                <h4 class="fw-bold text-dark mb-4">
+                    <i class="fa-solid fa-hand-holding-dollar text-primary me-2"></i> Donation & Sponsorship Pledge
+                </h4>
+
+                <form action="{{ url_for('api_submit_donation') }}" method="POST" id="donationForm">
+                    <!-- Step 1: Select Category -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">1. Select Cause or Sponsorship</label>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="category" id="cat1" value="Afternoon Snacks & Fruits" checked>
+                                <label class="btn btn-outline-primary w-100 text-start p-3 h-100 rounded-3 donation-option-btn" for="cat1">
+                                    <div class="fw-bold"><i class="fa-solid fa-cookie-bite text-warning me-2"></i>Afternoon Snacks & Fruits</div>
+                                    <small class="text-muted d-block mt-1">Evening snacks for 45 kids (Mon-Sat 3 PM+)</small>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="category" id="cat2" value="Birthday Meal Sponsorship">
+                                <label class="btn btn-outline-primary w-100 text-start p-3 h-100 rounded-3 donation-option-btn" for="cat2">
+                                    <div class="fw-bold"><i class="fa-solid fa-cake-candles text-danger me-2"></i>Birthday Meal & Cake</div>
+                                    <small class="text-muted d-block mt-1">Special feast & cake cutting with children</small>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="category" id="cat3" value="School Education Kits">
+                                <label class="btn btn-outline-primary w-100 text-start p-3 h-100 rounded-3 donation-option-btn" for="cat3">
+                                    <div class="fw-bold"><i class="fa-solid fa-graduation-cap text-info me-2"></i>School Education & Kits</div>
+                                    <small class="text-muted d-block mt-1">Books, bags, stationery & tuition fees</small>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="radio" class="btn-check" name="category" id="cat4" value="General Child Welfare Fund">
+                                <label class="btn btn-outline-primary w-100 text-start p-3 h-100 rounded-3 donation-option-btn" for="cat4">
+                                    <div class="fw-bold"><i class="fa-solid fa-shield-heart text-success me-2"></i>General Welfare Fund</div>
+                                    <small class="text-muted d-block mt-1">Healthcare, nutrition & Bal Sadan maintenance</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Choose Amount -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">2. Choose Contribution Amount (INR)</label>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-3 amount-preset-btn" data-amt="1500">₹1,500 (Snacks)</button>
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-3 amount-preset-btn active" data-amt="2500">₹2,500 (Deluxe Snacks)</button>
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-3 amount-preset-btn" data-amt="4500">₹4,500 (Full Feast)</button>
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-3 amount-preset-btn" data-amt="10000">₹10,000 (Monthly Education)</button>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text fw-bold">₹</span>
+                            <input type="number" name="amount" id="donationAmountInput" class="form-control form-control-lg fw-bold text-primary" value="2500" min="100" required>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Donor Particulars -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">3. Donor Information</label>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" name="donor_name" class="form-control" placeholder="e.g. Rajesh Agrawal" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Phone Number <span class="text-danger">*</span></label>
+                                <input type="tel" name="phone" class="form-control" placeholder="10-digit Mobile" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Email Address</label>
+                                <input type="email" name="email" class="form-control" placeholder="For receipt delivery">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Occasion (Optional)</label>
+                                <input type="text" name="occasion" class="form-control" placeholder="e.g. Daughter's Birthday, In Memory of...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Items or Notes & AI Blessing -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Item Details or Special Request (Optional)</label>
+                        <input type="text" name="item_description" class="form-control" placeholder="e.g. Sponsoring 45 snack boxes with bananas and biscuits">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Personal Blessing Note for the Children</label>
+                        <textarea name="blessing_message" class="form-control" rows="2" placeholder="Leave a sweet blessing for the kids (or leave blank for our AI Blessing generator to auto-compose)"></textarea>
+                    </div>
+
+                    <!-- Step 5: Payment Method -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">4. Payment Method</label>
+                        <select name="payment_method" class="form-select" id="paymentMethodSelect">
+                            <option value="UPI / QR Code" selected>UPI / QR Code (Google Pay, PhonePe, Paytm, BHIM)</option>
+                            <option value="Direct Bank Transfer (NEFT/IMPS)">Direct Bank Transfer (NEFT / IMPS)</option>
+                            <option value="Cash / Cheque at Office">Cash / Cheque at Lakad Ganj Office</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom btn-lg w-100 rounded-pill py-3 fw-bold shadow">
+                        <i class="fa-solid fa-shield-heart me-2"></i> Complete Pledge & Generate Official Receipt
+                    </button>
+                    <small class="text-muted d-block text-center mt-2">
+                        You will immediately receive an official receipt with a unique serial number (SKD-2026-XXXX).
+                    </small>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Instant UPI QR & Bank Information -->
+        <div class="col-lg-5">
+            <!-- UPI QR Card -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-white mb-4">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mx-auto mb-2">
+                    <i class="fa-solid fa-qrcode me-1"></i> INSTANT UPI SCAN & PAY
+                </span>
+                <h5 class="fw-bold text-dark mb-1">Sir Kasturchand Daga Bal Sadan</h5>
+                <small class="text-muted d-block mb-3">Lakad Ganj, Kamptee, Maharashtra 441001</small>
+
+                <div class="upi-qr-box p-3 border rounded-3 bg-light mx-auto mb-3" style="max-width: 240px;">
+                    <!-- Simulated Clean QR Code Graphic -->
+                    <div class="qr-mock d-flex flex-column align-items-center justify-content-center p-3 bg-white rounded border">
+                        <i class="fa-solid fa-qrcode display-1 text-dark mb-2"></i>
+                        <span class="small fw-bold text-primary">balsadan.kamptee@upi</span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <span class="badge bg-light text-dark border"><i class="fa-brands fa-google-pay text-primary"></i> GPay</span>
+                    <span class="badge bg-light text-dark border"><i class="fa-solid fa-mobile-screen text-info"></i> PhonePe</span>
+                    <span class="badge bg-light text-dark border"><i class="fa-solid fa-wallet text-secondary"></i> Paytm</span>
+                    <span class="badge bg-light text-dark border">BHIM UPI</span>
+                </div>
+
+                <p class="small text-muted mb-0">
+                    Scan using any UPI App. Once transferred, submit the form to register your official receipt in our database!
+                </p>
+            </div>
+
+            <!-- Bank Transfer Details -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-light">
+                <h6 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-building-columns text-primary me-2"></i> Official Bank Account Details
+                </h6>
+                <div class="small text-secondary">
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span>Account Name:</span>
+                        <strong class="text-dark">Sir Kasturchand Daga Bal Sadan</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span>Bank Name:</span>
+                        <strong class="text-dark">State Bank of India (SBI)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span>Branch:</span>
+                        <strong class="text-dark">Kamptee Branch, Maharashtra</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span>Account Number:</span>
+                        <strong class="text-dark font-monospace">3113179559377</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1">
+                        <span>IFSC Code:</span>
+                        <strong class="text-dark font-monospace">SBIN0000401</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.querySelectorAll('.amount-preset-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.amount-preset-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('donationAmountInput').value = this.getAttribute('data-amt');
+        });
+    });
+</script>
+{% endblock %}

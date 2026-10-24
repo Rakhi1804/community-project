@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Volunteer Program | Sir Kasturchand Daga Bal Sadan, Kamptee{% endblock %}
+
+{% block content %}
+<div class="bg-primary-custom text-white py-5">
+    <div class="container text-center">
+        <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fa-solid fa-hands-holding-circle me-1"></i> GIVE THE GIFT OF TIME
+        </span>
+        <h1 class="display-5 fw-extrabold mb-3">Become a Volunteer Mentor</h1>
+        <p class="lead opacity-90 mx-auto" style="max-width: 700px;">
+            Your knowledge, affection, and presence can inspire our 45 children to dream big and build fulfilling futures.
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Left: Impact & Volunteer Roles -->
+        <div class="col-lg-6">
+            <h4 class="fw-bold text-dark mb-4">How You Can Make a Difference</h4>
+
+            <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-4 mb-3 border">
+                <div class="icon-circle bg-primary-subtle text-primary flex-shrink-0">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold text-dark mb-1">Academic Mentoring & Tutoring</h6>
+                    <p class="small text-muted mb-0">Help children in Classes 1 through 10 with Mathematics, Science, English, and homework assistance during study hours.</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-4 mb-3 border">
+                <div class="icon-circle bg-warning-subtle text-warning flex-shrink-0">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold text-dark mb-1">Snack & Refreshment Assistance (3 PM+)</h6>
+                    <p class="small text-muted mb-0">Assist during the afternoon snack distribution window (Monday to Saturday from 3:00 PM onwards), organizing treats and spending quality time with the kids.</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-4 mb-3 border">
+                <div class="icon-circle bg-success-subtle text-success flex-shrink-0">
+                    <i class="fa-solid fa-palette"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold text-dark mb-1">Arts, Crafts & Storytelling</h6>
+                    <p class="small text-muted mb-0">Conduct weekend creative workshops including drawing, origami, clay modeling, music, and moral value storytelling.</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-4 mb-3 border">
+                <div class="icon-circle bg-info-subtle text-info flex-shrink-0">
+                    <i class="fa-solid fa-baseball-bat-ball"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold text-dark mb-1">Sports, Yoga & Wellness</h6>
+                    <p class="small text-muted mb-0">Lead energetic sports sessions (cricket, volleyball, kho-kho) and mindfulness yoga for physical wellness and team spirit.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-secondary p-3 small border">
+                <strong class="text-dark"><i class="fa-solid fa-location-dot me-1"></i> Campus Location:</strong><br>
+                Lakad Ganj, Kamptee, Maharashtra 441001. Approximately 1.5 km from Kamptee Railway Station.
+            </div>
+        </div>
+
+        <!-- Right: Volunteer Application Form -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+                <h5 class="fw-bold text-dark mb-2">Volunteer Registration</h5>
+                <p class="small text-muted mb-4">Complete this short form to join our registered volunteer database.</p>
+
+                <form action="{{ url_for('api_submit_volunteer') }}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" placeholder="e.g. Anjali Nair" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold">Phone Number <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control" placeholder="10-digit Mobile" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="e.g. anjali@example.com">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Profession / Education</label>
+                        <input type="text" name="occupation" class="form-control" placeholder="e.g. College Student, Software Engineer, Teacher">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Skills & Interests</label>
+                        <input type="text" name="skills" class="form-control" placeholder="e.g. Teaching Math, Art & Craft, Sports, Snack distribution">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Your Availability</label>
+                        <select name="availability" class="form-select">
+                            <option value="Weekdays Afternoon (After 3:00 PM)" selected>Weekdays Afternoon (After 3:00 PM)</option>
+                            <option value="Weekends (Saturdays & Sundays)">Weekends (Saturdays & Sundays)</option>
+                            <option value="Flexible / On Call">Flexible / On Call</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Briefly tell us why you want to volunteer</label>
+                        <textarea name="message" class="form-control" rows="3" placeholder="Share your motivation..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2 rounded-pill fw-bold shadow-sm">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Submit Volunteer Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,521 @@
+{% extends 'base.html' %}
+
+{% block title %}Sir Kasturchand Daga Bal Sadan, Kamptee | Home & Orphanage{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative py-5">
+    <div class="container py-lg-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="hero-badge mb-3 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm">
+                    <span class="badge bg-danger rounded-circle p-1"><i class="fa-solid fa-heart fa-xs"></i></span>
+                    <span class="small fw-semibold text-dark">Orphanage & Bal Sadan • Lakad Ganj, Kamptee</span>
+                </div>
+                
+                <h1 class="display-4 fw-extrabold text-navy hero-title mb-3">
+                    Every Child Deserves <span class="text-gradient">Love, Nourishment & Learning</span>
+                </h1>
+                
+                <p class="lead text-muted mb-4 hero-subtitle">
+                    Welcome to <strong>Sir Kasturchand Daga Bal Sadan</strong>, an established sanctuary in Kamptee providing loving home care, quality education, and daily nutritious sustenance for 45 deserving children.
+                </p>
+
+                <!-- Highlight Snack Notice Card -->
+                <div class="snack-notice-card card border-0 shadow-sm p-3 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="notice-icon-box flex-shrink-0">
+                            <i class="fa-solid fa-apple-whole text-primary fs-3"></i>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge bg-warning text-dark fw-bold">ORPHANAGE ANNOUNCEMENT</span>
+                                <span class="badge bg-light text-muted border">Daily Schedule</span>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">
+                                Donation Towards Children Like Snacks:
+                            </h6>
+                            <p class="mb-0 text-secondary small">
+                                We warmly welcome patrons, families, and community members to bring <strong>afternoon snacks, fresh fruits, biscuits, and refreshments</strong> for our children:
+                                <br>
+                                <span class="text-danger fw-bold"><i class="fa-solid fa-calendar-check me-1"></i> Monday to Saturday — 3:00 PM onwards</span>
+                                <span class="text-muted ms-1">(Office opens at 11:00 AM)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTAs -->
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('donate_snacks') }}" class="btn btn-primary-custom btn-lg px-4 shadow rounded-pill">
+                        <i class="fa-solid fa-cookie-bite me-2"></i> Schedule Snack Donation (3 PM+)
+                    </a>
+                    <a href="{{ url_for('donate') }}" class="btn btn-outline-dark btn-lg px-4 rounded-pill">
+                        <i class="fa-solid fa-hand-holding-dollar me-2"></i> Monetary Donation
+                    </a>
+                    <a href="{{ url_for('ai_assistant_page') }}" class="btn btn-light border btn-lg px-3 rounded-pill text-primary">
+                        <i class="fa-solid fa-wand-magic-sparkles me-1 text-accent"></i> AI Assistant
+                    </a>
+                </div>
+
+                <!-- WhatsApp Quick Share Bar -->
+                <div class="mt-4 pt-2">
+                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 py-2 fw-bold" data-bs-toggle="modal" data-bs-target="#whatsappShareModal">
+                        <i class="fa-brands fa-whatsapp me-2 fs-6"></i> Share Snack Donation Appeal on WhatsApp
+                    </button>
+                    <small class="text-muted ms-2 d-none d-sm-inline">• One-click message for family & society groups</small>
+                </div>
+            </div>
+
+            <!-- Hero Side Card & Quick Overview -->
+            <div class="col-lg-5">
+                <div class="hero-stats-card card border-0 shadow-lg p-4 rounded-4 position-relative overflow-hidden">
+                    <div class="card-glow-bg"></div>
+                    <div class="position-relative">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                            <div>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 mb-1">
+                                    <i class="fa-solid fa-shield-heart me-1"></i> Verified Bal Sadan
+                                </span>
+                                <h5 class="fw-bold mb-0 text-dark">Campus Overview</h5>
+                                <small class="text-muted">Lakad Ganj, Kamptee, Maharashtra 441001</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="display-6 fw-bold text-primary">{{ children_count }}</span>
+                                <div class="small text-muted">Children in Care</div>
+                            </div>
+                        </div>
+
+                        <!-- Highlights List -->
+                        <div class="info-checklist mb-4">
+                            <div class="d-flex align-items-center gap-3 py-2 border-bottom border-light">
+                                <div class="icon-circle bg-primary-subtle text-primary">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <strong class="d-block small text-dark">Evening Snack Slot</strong>
+                                    <small class="text-muted">Mon - Sat from 3:00 PM onwards</small>
+                                </div>
+                                <span class="badge bg-light text-dark border">Daily</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 py-2 border-bottom border-light">
+                                <div class="icon-circle bg-info-subtle text-info">
+                                    <i class="fa-solid fa-door-open"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <strong class="d-block small text-dark">Office & Administration</strong>
+                                    <small class="text-muted">Opens daily at 11:00 AM</small>
+                                </div>
+                                <span class="badge bg-light text-dark border">Open</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 py-2 border-bottom border-light">
+                                <div class="icon-circle bg-warning-subtle text-warning">
+                                    <i class="fa-solid fa-cake-candles"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <strong class="d-block small text-dark">Birthday & Occasion Celebrations</strong>
+                                    <small class="text-muted">Bring cake & snacks to celebrate with kids</small>
+                                </div>
+                                <span class="badge bg-light text-dark border">Welcome</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 py-2">
+                                <div class="icon-circle bg-success-subtle text-success">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <strong class="d-block small text-dark">Direct Helpline</strong>
+                                    <small class="text-muted">{{ org_phone_display }}</small>
+                                </div>
+                                <a href="tel:{{ org_phone }}" class="btn btn-sm btn-outline-success rounded-pill px-2">Call</a>
+                            </div>
+                        </div>
+
+                        <!-- Direct Action -->
+                        <div class="bg-light p-3 rounded-3 border">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong class="d-block text-dark small">Planning to visit Kamptee?</strong>
+                                    <small class="text-muted">Book your snack slot to avoid duplicate food items.</small>
+                                </div>
+                                <a href="{{ url_for('donate_snacks') }}" class="btn btn-sm btn-primary-custom rounded-pill">Book Slot</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Numbers Bar -->
+<section class="stats-counter-bar py-4 bg-navy text-white">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-5 fw-extrabold text-accent mb-0">45+</h2>
+                    <p class="mb-0 text-light small text-uppercase fw-semibold">Children Sheltered</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-5 fw-extrabold text-accent mb-0">3:00 PM</h2>
+                    <p class="mb-0 text-light small text-uppercase fw-semibold">Daily Snack Time (Mon-Sat)</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-5 fw-extrabold text-accent mb-0">100%</h2>
+                    <p class="mb-0 text-light small text-uppercase fw-semibold">School Attendance</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <h2 class="display-5 fw-extrabold text-accent mb-0">25+ Yrs</h2>
+                    <p class="mb-0 text-light small text-uppercase fw-semibold">Kamptee Legacy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dedicated Snack Drive Feature Banner -->
+<section class="py-5 bg-warm-light">
+    <div class="container">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden snack-feature-card">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-5 p-4 p-md-5 bg-primary-custom text-white">
+                    <span class="badge bg-warning text-dark fw-bold mb-2">COMMUNITY APPEAL</span>
+                    <h2 class="fw-bold mb-3">Afternoon Snack & Refreshment Drive</h2>
+                    <p class="leading-relaxed opacity-90 mb-4">
+                        "Donation towards children like snacks for this time is Monday to Saturday 3 pm onwards."
+                        <br><br>
+                        After returning from school at 2:30 PM, our children freshen up and look forward to an energizing, healthy snack before their evening tuition and games.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ url_for('donate_snacks') }}" class="btn btn-warning text-dark fw-bold rounded-pill px-4">
+                            <i class="fa-solid fa-calendar-plus me-1"></i> Schedule a Visit
+                        </a>
+                        <a href="tel:{{ org_phone }}" class="btn btn-outline-light rounded-pill px-3">
+                            <i class="fa-solid fa-phone me-1"></i> Call 077095 58334
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-7 p-4 p-md-5 bg-white">
+                    <h5 class="fw-bold text-dark mb-3">What Snacks are Most Appreciated?</h5>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="icon-circle bg-success-subtle text-success">
+                                        <i class="fa-solid fa-apple-whole"></i>
+                                    </span>
+                                    <strong class="text-dark">Fresh Fruits</strong>
+                                </div>
+                                <p class="small text-muted mb-0">Bananas, apples, sweet limes, oranges — essential for building immunity and natural energy.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="icon-circle bg-warning-subtle text-warning">
+                                        <i class="fa-solid fa-bowl-food"></i>
+                                    </span>
+                                    <strong class="text-dark">Hot Wholesome Snacks</strong>
+                                </div>
+                                <p class="small text-muted mb-0">Poha, Upma, vegetable sandwiches, idli, samosas or dhokla from clean, hygienic vendors.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="icon-circle bg-primary-subtle text-primary">
+                                        <i class="fa-solid fa-cookie"></i>
+                                    </span>
+                                    <strong class="text-dark">Biscuits & Treats</strong>
+                                </div>
+                                <p class="small text-muted mb-0">Marie biscuits, glucose biscuits, fruit cakes, peanut chikki, and evening tea/milk rusks.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="icon-circle bg-info-subtle text-info">
+                                        <i class="fa-solid fa-bottle-droplet"></i>
+                                    </span>
+                                    <strong class="text-dark">Juices & Milk Drinks</strong>
+                                </div>
+                                <p class="small text-muted mb-0">Flavored milk tetra packs, mango/fruit juice boxes (Frooti, Real), badam milk cartons.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Urgent Wishlist / Database Inventory Needs -->
+<section class="py-5" id="urgent-needs">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill mb-2">
+                <i class="fa-solid fa-bullhorn me-1"></i> LIVE DATABASE WISHLIST
+            </span>
+            <h2 class="fw-extrabold text-navy">Current Needs for Our Children</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+                Directly tracked by our administration team. You can fulfill these specific requirements or sponsor the quantity needed.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% for item in inventory %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 inventory-card position-relative">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge {% if item.urgency == 'Urgent' %}bg-danger{% elif item.urgency == 'High' %}bg-warning text-dark{% else %}bg-secondary{% endif %} rounded-pill px-3">
+                            {{ item.urgency }}
+                        </span>
+                        <span class="badge bg-light text-muted border">{{ item.category }}</span>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mt-2 mb-2">{{ item.item_name }}</h5>
+                    <p class="small text-muted mb-3">{{ item.description }}</p>
+
+                    <!-- Progress Bar -->
+                    {% set percent = ((item.fulfilled_qty / item.target_qty) * 100) | round | int if item.target_qty > 0 else 0 %}
+                    <div class="d-flex justify-content-between small fw-semibold mb-1">
+                        <span class="text-muted">Fulfilled: {{ item.fulfilled_qty }} {{ item.unit }}</span>
+                        <span class="text-primary">{{ percent }}%</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar bg-primary-custom" role="progressbar" style="width: {{ percent }}%;" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <small class="text-muted">Target: <strong>{{ item.target_qty }} {{ item.unit }}</strong></small>
+                        <a href="{{ url_for('donate') }}?item={{ item.item_name|urlencode }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                            Contribute
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- About Sir Kasturchand Daga & Bal Sadan -->
+<section class="py-5 bg-light border-top border-bottom">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="about-image-wrapper position-relative">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden p-4 bg-white">
+                        <div class="heritage-badge mb-3">
+                            <span class="badge bg-primary text-white px-3 py-2 rounded-pill">
+                                <i class="fa-solid fa-landmark me-1"></i> Historic Vidarbha Philanthropy
+                            </span>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-3">The Noble Heritage of Sir Kasturchand Daga</h4>
+                        <p class="text-secondary leading-relaxed small">
+                            Sir Kasturchand Daga was one of Central India's most revered philanthropists and industrialists, whose life was dedicated to social upliftment, education, healthcare, and charity throughout Nagpur, Kamptee, and the Vidarbha region.
+                        </p>
+                        <p class="text-secondary leading-relaxed small">
+                            Continuing this illustrious heritage, <strong>Sir Kasturchand Daga Bal Sadan</strong> in Lakad Ganj, Kamptee stands as a beacon of compassion. Here, children deprived of parental care find a warm family atmosphere, full educational funding, spiritual values, nutritious daily food, and hope for a bright future.
+                        </p>
+                        <div class="d-flex gap-3 mt-3">
+                            <div class="border rounded-3 p-2 text-center flex-grow-1 bg-light">
+                                <i class="fa-solid fa-heart text-danger fs-5 mb-1"></i>
+                                <div class="fw-bold small text-dark">Compassionate Care</div>
+                            </div>
+                            <div class="border rounded-3 p-2 text-center flex-grow-1 bg-light">
+                                <i class="fa-solid fa-graduation-cap text-primary fs-5 mb-1"></i>
+                                <div class="fw-bold small text-dark">Formal Schooling</div>
+                            </div>
+                            <div class="border rounded-3 p-2 text-center flex-grow-1 bg-light">
+                                <i class="fa-solid fa-shield-check text-success fs-5 mb-1"></i>
+                                <div class="fw-bold small text-dark">Secure Shelter</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <span class="badge bg-warning-subtle text-dark border border-warning-subtle px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-calendar-days me-1"></i> A DAY IN THE LIFE
+                </span>
+                <h2 class="fw-extrabold text-navy mb-4">Children's Daily Routine</h2>
+                
+                <div class="timeline-container ps-3 border-start border-2 border-primary">
+                    <div class="timeline-item mb-3 position-relative ps-3">
+                        <div class="timeline-dot bg-primary"></div>
+                        <span class="badge bg-light text-dark border mb-1">6:00 AM – 8:30 AM</span>
+                        <h6 class="fw-bold mb-1 text-dark">Morning Prayers, Milk & School Prep</h6>
+                        <p class="small text-muted mb-0">Waking up with prayer, morning exercise, nutritious breakfast, and departing for local schools in Kamptee.</p>
+                    </div>
+
+                    <div class="timeline-item mb-3 position-relative ps-3">
+                        <div class="timeline-dot bg-info"></div>
+                        <span class="badge bg-light text-dark border mb-1">9:00 AM – 2:30 PM</span>
+                        <h6 class="fw-bold mb-1 text-dark">Formal Schooling & Classes</h6>
+                        <p class="small text-muted mb-0">English, Marathi, Hindi, Science, and Mathematics curriculum with full textbook and uniform support.</p>
+                    </div>
+
+                    <div class="timeline-item mb-3 position-relative ps-3 bg-warning-subtle p-2 rounded-3 border border-warning">
+                        <div class="timeline-dot bg-warning"></div>
+                        <span class="badge bg-warning text-dark fw-bold mb-1">⭐ 3:00 PM ONWARDS (VISITING TIME)</span>
+                        <h6 class="fw-bold mb-1 text-dark">Afternoon Snacks & Guest Interactions</h6>
+                        <p class="small text-dark mb-0">Children enjoy fresh fruits, evening snacks, juice, and interact warmly with visiting patrons and birthday celebrants.</p>
+                    </div>
+
+                    <div class="timeline-item mb-3 position-relative ps-3">
+                        <div class="timeline-dot bg-success"></div>
+                        <span class="badge bg-light text-dark border mb-1">4:30 PM – 7:30 PM</span>
+                        <h6 class="fw-bold mb-1 text-dark">Playtime, Evening Tuition & Homework</h6>
+                        <p class="small text-muted mb-0">Outdoor sports, drawing classes, and supervised study hours with qualified volunteer teachers.</p>
+                    </div>
+
+                    <div class="timeline-item position-relative ps-3">
+                        <div class="timeline-dot bg-secondary"></div>
+                        <span class="badge bg-light text-dark border mb-1">8:00 PM – 9:30 PM</span>
+                        <h6 class="fw-bold mb-1 text-dark">Wholesome Dinner & Bedtime</h6>
+                        <p class="small text-muted mb-0">Freshly cooked vegetarian dinner, moral story time, and a peaceful night's rest.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive AI Assistant Spotlight -->
+<section class="py-5 bg-navy text-white">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="badge bg-accent text-dark fw-bold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-sparkles me-1"></i> AI-POWERED PLATFORM
+                </span>
+                <h2 class="display-6 fw-bold mb-3">Meet Mitra: Your Bal Sadan AI Assistant</h2>
+                <p class="lead text-light-muted mb-3">
+                    Have questions about visiting, what snacks to bring, or how to celebrate a birthday with the children? Our AI companion is trained with comprehensive local knowledge and operates 24/7.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="badge bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-accent me-1"></i> Snack Menu & Cost Calculator</span>
+                    <span class="badge bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-accent me-1"></i> English, Hindi & Marathi Support</span>
+                    <span class="badge bg-dark border border-secondary px-3 py-2"><i class="fa-solid fa-check text-accent me-1"></i> Personalized Blessing Letter Generator</span>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('ai_assistant_page') }}" class="btn btn-accent text-dark fw-bold px-4 py-2 rounded-pill">
+                        <i class="fa-solid fa-calculator me-1"></i> Open AI Snack & Meal Planner
+                    </a>
+                    <button class="btn btn-outline-light px-4 py-2 rounded-pill" onclick="document.getElementById('toggleAiChatBtn').click();">
+                        <i class="fa-solid fa-comments me-1"></i> Quick Chat Now
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="ai-robot-card p-4 rounded-4 bg-white text-dark shadow-lg">
+                    <div class="ai-avatar-large mx-auto mb-3">
+                        <i class="fa-solid fa-robot text-primary fs-1"></i>
+                    </div>
+                    <h5 class="fw-bold mb-1">Mitra AI Companion</h5>
+                    <p class="small text-muted mb-3">Trained on Sir Kasturchand Daga Bal Sadan data</p>
+                    <div class="bg-light p-3 rounded-3 text-start small border">
+                        <span class="text-muted d-block mb-1">Try asking:</span>
+                        <em class="text-primary fw-medium">"What is the best time to donate snacks for 45 children?"</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Location & How to Reach Us -->
+<section class="py-5" id="visit-us">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2">
+                <i class="fa-solid fa-location-dot me-1"></i> VISIT OUR CAMPTEE CAMPUS
+            </span>
+            <h2 class="fw-extrabold text-navy">How to Reach Bal Sadan</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">
+                We are located centrally in Lakad Ganj, Kamptee. Families, patrons, and students are warmly welcome to visit during visiting hours.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm p-4 rounded-4 h-100 bg-light">
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-map-pin text-danger me-2"></i> Address & Office Details</h5>
+                    
+                    <div class="mb-3">
+                        <label class="text-muted small fw-semibold">FULL ADDRESS</label>
+                        <p class="fw-bold text-dark fs-5 mb-0">Sir Kasturchand Daga Bal Sadan</p>
+                        <p class="text-secondary mb-1">Lakad Ganj, Kamptee, Maharashtra 441001</p>
+                        <small class="text-muted"><i class="fa-solid fa-train me-1"></i> Approx. 1.5 km from Kamptee Railway Station | 15 km from Nagpur</small>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <div class="p-3 bg-white rounded-3 border">
+                                <small class="text-muted d-block">DIRECT HELPLINE</small>
+                                <a href="tel:{{ org_phone }}" class="fw-bold text-primary text-decoration-none fs-6">{{ org_phone_display }}</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-3 bg-white rounded-3 border">
+                                <small class="text-muted d-block">OFFICE TIMINGS</small>
+                                <span class="fw-bold text-dark fs-6">Opens 11:00 AM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning border-warning small mb-3">
+                        <strong><i class="fa-solid fa-clock me-1"></i> Snack Donation Window:</strong><br>
+                        Monday to Saturday from <strong>3:00 PM onwards</strong>. Prior notification via call or slot booking helps us coordinate meals nicely.
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a href="https://www.google.com/search?q=sir+kasturchand+daga+bal+sadan+kamptee" target="_blank" class="btn btn-primary-custom rounded-pill px-4">
+                            <i class="fa-solid fa-diamond-turn-right me-1"></i> Google Maps Directions
+                        </a>
+                        <a href="tel:{{ org_phone }}" class="btn btn-outline-dark rounded-pill px-3">
+                            <i class="fa-solid fa-phone me-1"></i> Call Office
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Visual Map Card -->
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                    <div class="map-placeholder-box p-4 text-center bg-white d-flex flex-column justify-content-center align-items-center" style="min-height: 380px;">
+                        <div class="map-icon-box mb-3">
+                            <i class="fa-solid fa-map-location-dot text-primary display-4"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">Lakad Ganj, Kamptee 441001</h5>
+                        <p class="text-muted small mb-3" style="max-width: 400px;">
+                            Conveniently connected by roads and local transport from Kamptee Station, Kamptee Cantonment, and Nagpur City.
+                        </p>
+                        <div class="d-flex flex-column gap-2 w-75">
+                            <a href="https://www.google.com/search?q=sir+kasturchand+daga+bal+sadan+kamptee" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill py-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open in Google Maps
+                            </a>
+                            <a href="{{ url_for('donate_snacks') }}" class="btn btn-warning text-dark fw-bold btn-sm rounded-pill py-2">
+                                <i class="fa-solid fa-calendar-check me-1"></i> Book Afternoon Visit (3 PM+)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,362 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard | Sir Kasturchand Daga Bal Sadan, Kamptee{% endblock %}
+
+{% block content %}
+<div class="bg-navy text-white py-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge bg-danger rounded-pill px-3 py-1">ADMIN PORTAL</span>
+                <span class="text-white-50 small">Sir Kasturchand Daga Bal Sadan</span>
+            </div>
+            <h2 class="fw-bold mb-0">Management & Operations Dashboard</h2>
+        </div>
+        <div class="mt-3 mt-md-0 d-flex gap-2">
+            <a href="{{ url_for('home') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                <i class="fa-solid fa-globe me-1"></i> View Website
+            </a>
+            <a href="{{ url_for('admin_logout') }}" class="btn btn-danger btn-sm rounded-pill px-3">
+                <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <!-- Top KPI Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small fw-semibold">TOTAL DONATION PLEDGES</span>
+                    <div class="icon-circle bg-success-subtle text-success small">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                </div>
+                <h3 class="fw-extrabold text-success mb-0">₹{{ "{:,.0f}".format(stats.total_funds) }}</h3>
+                <small class="text-muted">{{ stats.donations_count }} Total Contributions</small>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small fw-semibold">SNACK & VISIT APPOINTMENTS</span>
+                    <div class="icon-circle bg-warning-subtle text-warning small">
+                        <i class="fa-solid fa-cookie-bite"></i>
+                    </div>
+                </div>
+                <h3 class="fw-extrabold text-dark mb-0">{{ stats.visits_count }}</h3>
+                <small class="text-muted">Monday-Saturday 3 PM Slot Bookings</small>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small fw-semibold">REGISTERED VOLUNTEERS</span>
+                    <div class="icon-circle bg-primary-subtle text-primary small">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                </div>
+                <h3 class="fw-extrabold text-primary mb-0">{{ stats.volunteers_count }}</h3>
+                <small class="text-muted">Tutoring, Snacks & Activities</small>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small fw-semibold">UNREAD INQUIRIES</span>
+                    <div class="icon-circle bg-danger-subtle text-danger small">
+                        <i class="fa-solid fa-envelope-open"></i>
+                    </div>
+                </div>
+                <h3 class="fw-extrabold text-danger mb-0">{{ stats.unread_inquiries }}</h3>
+                <small class="text-muted">Direct Messages from Public</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabbed Data Tables -->
+    <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+        <div class="card-header bg-light border-0 p-3">
+            <ul class="nav nav-tabs card-header-tabs border-0 gap-2" id="adminTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active fw-bold" id="visits-tab" data-bs-toggle="tab" data-bs-target="#visits-pane" type="button">
+                        <i class="fa-solid fa-calendar-check text-warning me-1"></i> Snack & Visit Bookings ({{ visits|length }})
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold" id="donations-tab" data-bs-toggle="tab" data-bs-target="#donations-pane" type="button">
+                        <i class="fa-solid fa-receipt text-success me-1"></i> Donations ({{ donations|length }})
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory-pane" type="button">
+                        <i class="fa-solid fa-list-check text-primary me-1"></i> Live Wishlist / Inventory ({{ inventory|length }})
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold" id="volunteers-tab" data-bs-toggle="tab" data-bs-target="#volunteers-pane" type="button">
+                        <i class="fa-solid fa-user-plus text-info me-1"></i> Volunteers ({{ volunteers|length }})
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold" id="inquiries-tab" data-bs-toggle="tab" data-bs-target="#inquiries-pane" type="button">
+                        <i class="fa-solid fa-envelope text-secondary me-1"></i> Inquiries ({{ inquiries|length }})
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="tab-content" id="adminTabContent">
+                
+                <!-- 1. Visits Table -->
+                <div class="tab-pane fade show active" id="visits-pane" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark mb-0">Scheduled Visits & Afternoon Snack Drops</h6>
+                        <span class="badge bg-warning text-dark fw-bold">Slot: Mon-Sat from 3:00 PM onwards</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Booking Ref</th>
+                                    <th>Visitor Name</th>
+                                    <th>Phone & Email</th>
+                                    <th>Visit Date & Time Slot</th>
+                                    <th>Purpose</th>
+                                    <th>Snack Description</th>
+                                    <th>Guests</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in visits %}
+                                <tr>
+                                    <td><span class="font-monospace fw-bold text-primary">{{ v.booking_ref }}</span></td>
+                                    <td class="fw-bold">{{ v.visitor_name }}</td>
+                                    <td>
+                                        <div><i class="fa-solid fa-phone fa-xs text-muted me-1"></i> {{ v.phone }}</div>
+                                        {% if v.email %}<div class="text-muted"><i class="fa-solid fa-envelope fa-xs text-muted me-1"></i> {{ v.email }}</div>{% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold text-dark">{{ v.visit_date }}</div>
+                                        <span class="badge bg-light text-dark border">{{ v.time_slot }}</span>
+                                    </td>
+                                    <td><span class="badge bg-info-subtle text-info">{{ v.purpose }}</span></td>
+                                    <td><span class="text-secondary">{{ v.snack_items or 'General visit' }}</span></td>
+                                    <td>{{ v.guest_count }}</td>
+                                    <td>
+                                        <span class="badge {% if v.status == 'Approved' or v.status == 'Confirmed' %}bg-success{% elif v.status == 'Completed' %}bg-secondary{% else %}bg-warning text-dark{% endif %}">
+                                            {{ v.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url_for('api_admin_visit_status') }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="visit_id" value="{{ v.id }}">
+                                            <select name="status" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
+                                                <option value="Confirmed" {% if v.status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                                                <option value="Approved" {% if v.status == 'Approved' %}selected{% endif %}>Approved</option>
+                                                <option value="Completed" {% if v.status == 'Completed' %}selected{% endif %}>Completed</option>
+                                                <option value="Cancelled" {% if v.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr><td colspan="9" class="text-center text-muted py-3">No visits scheduled yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. Donations Table -->
+                <div class="tab-pane fade" id="donations-pane" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark mb-0">Donation Pledges & Receipts</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Receipt No</th>
+                                    <th>Donor Name</th>
+                                    <th>Phone</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Occasion / Note</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in donations %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ url_for('view_receipt', receipt_no=d.receipt_no) }}" class="font-monospace fw-bold text-primary text-decoration-none">
+                                            {{ d.receipt_no }} <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                                        </a>
+                                    </td>
+                                    <td class="fw-bold">{{ d.donor_name }}</td>
+                                    <td>{{ d.phone }}</td>
+                                    <td><span class="badge bg-light text-dark border">{{ d.category }}</span></td>
+                                    <td class="fw-bold text-success">₹{{ "{:,.2f}".format(d.amount) }}</td>
+                                    <td>{{ d.payment_method }}</td>
+                                    <td>
+                                        <div>{{ d.occasion or 'General' }}</div>
+                                        <small class="text-muted">{{ d.item_description }}</small>
+                                    </td>
+                                    <td class="text-muted">{{ d.created_at }}</td>
+                                    <td>
+                                        <a href="{{ url_for('view_receipt', receipt_no=d.receipt_no) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">
+                                            Receipt
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr><td colspan="9" class="text-center text-muted py-3">No donations registered yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 3. Inventory Table -->
+                <div class="tab-pane fade" id="inventory-pane" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark mb-0">Urgent Needs & Inventory Tracker</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Category</th>
+                                    <th>Urgency</th>
+                                    <th>Target Qty</th>
+                                    <th>Fulfilled Qty</th>
+                                    <th>Progress</th>
+                                    <th>Update Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in inventory %}
+                                {% set pct = ((item.fulfilled_qty / item.target_qty) * 100) | round | int if item.target_qty > 0 else 0 %}
+                                <tr>
+                                    <td class="fw-bold">{{ item.item_name }}</td>
+                                    <td><span class="badge bg-light text-dark border">{{ item.category }}</span></td>
+                                    <td>
+                                        <span class="badge {% if item.urgency == 'Urgent' %}bg-danger{% elif item.urgency == 'High' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                                            {{ item.urgency }}
+                                        </span>
+                                    </td>
+                                    <td>{{ item.target_qty }} {{ item.unit }}</td>
+                                    <td>{{ item.fulfilled_qty }} {{ item.unit }}</td>
+                                    <td style="min-width: 120px;">
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" style="width: {{ pct }}%;"></div>
+                                        </div>
+                                        <small class="text-muted">{{ pct }}%</small>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url_for('api_admin_inventory_update') }}" method="POST" class="d-flex gap-1">
+                                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                                            <input type="number" name="fulfilled_qty" value="{{ item.fulfilled_qty }}" class="form-control form-control-sm" style="width: 75px;" min="0">
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Save</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. Volunteers Table -->
+                <div class="tab-pane fade" id="volunteers-pane" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark mb-0">Volunteer Applications</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone & Email</th>
+                                    <th>Profession</th>
+                                    <th>Skills</th>
+                                    <th>Availability</th>
+                                    <th>Message / Motivation</th>
+                                    <th>Applied On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vol in volunteers %}
+                                <tr>
+                                    <td class="fw-bold">{{ vol.name }}</td>
+                                    <td>
+                                        <div><i class="fa-solid fa-phone fa-xs text-muted me-1"></i> {{ vol.phone }}</div>
+                                        {% if vol.email %}<div class="text-muted">{{ vol.email }}</div>{% endif %}
+                                    </td>
+                                    <td>{{ vol.occupation or '—' }}</td>
+                                    <td><span class="badge bg-light text-dark border">{{ vol.skills or 'General' }}</span></td>
+                                    <td>{{ vol.availability }}</td>
+                                    <td><span class="text-secondary">{{ vol.message or '—' }}</span></td>
+                                    <td class="text-muted">{{ vol.created_at }}</td>
+                                </tr>
+                                {% else %}
+                                <tr><td colspan="7" class="text-center text-muted py-3">No volunteer applications yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5. Inquiries Table -->
+                <div class="tab-pane fade" id="inquiries-pane" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-dark mb-0">Public Messages & Inquiries</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sender</th>
+                                    <th>Phone / Email</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Received At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for inq in inquiries %}
+                                <tr>
+                                    <td class="fw-bold">{{ inq.name }}</td>
+                                    <td>
+                                        {% if inq.phone %}<div>{{ inq.phone }}</div>{% endif %}
+                                        {% if inq.email %}<div class="text-muted">{{ inq.email }}</div>{% endif %}
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">{{ inq.subject }}</span></td>
+                                    <td>{{ inq.message }}</td>
+                                    <td class="text-muted">{{ inq.created_at }}</td>
+                                </tr>
+                                {% else %}
+                                <tr><td colspan="5" class="text-center text-muted py-3">No inquiries received yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

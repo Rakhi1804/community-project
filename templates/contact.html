@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact & Directions | Sir Kasturchand Daga Bal Sadan, Kamptee{% endblock %}
+
+{% block content %}
+<div class="bg-primary-custom text-white py-5">
+    <div class="container text-center">
+        <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fa-solid fa-location-dot me-1"></i> REACH OUR KAMPTEE CAMPUS
+        </span>
+        <h1 class="display-5 fw-extrabold mb-3">Contact & Location Guide</h1>
+        <p class="lead opacity-90 mx-auto" style="max-width: 700px;">
+            We are always happy to welcome visitors, donors, and patrons at Lakad Ganj, Kamptee.
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Contact Information Cards -->
+        <div class="col-lg-5">
+            <h4 class="fw-bold text-dark mb-4">Official Information</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 bg-light border-start border-4 border-primary">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="icon-circle bg-danger-subtle text-danger">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </span>
+                    <strong class="text-dark fs-6">Campus Address</strong>
+                </div>
+                <h5 class="fw-bold text-dark mb-1">Sir Kasturchand Daga Bal Sadan</h5>
+                <p class="text-secondary small mb-2">Lakad Ganj, Kamptee, Maharashtra 441001</p>
+                <small class="text-muted"><i class="fa-solid fa-train me-1 text-info"></i> 1.5 km from Kamptee Railway Station | 15 km from Nagpur City</small>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 bg-light border-start border-4 border-success">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="icon-circle bg-success-subtle text-success">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <strong class="text-dark fs-6">Direct Helplines</strong>
+                </div>
+                <p class="mb-2">
+                    <a href="tel:{{ org_phone }}" class="fw-bold text-success text-decoration-none fs-5">
+                        <i class="fa-solid fa-phone me-1"></i> {{ org_phone_display }}
+                    </a>
+                </p>
+                <a href="https://wa.me/917709558334" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                    <i class="fa-brands fa-whatsapp me-1"></i> Message on WhatsApp
+                </a>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-3 bg-light border-start border-4 border-warning">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="icon-circle bg-warning-subtle text-warning">
+                        <i class="fa-solid fa-clock"></i>
+                    </span>
+                    <strong class="text-dark fs-6">Timings & Snack Donations</strong>
+                </div>
+                <div class="small text-secondary">
+                    <p class="mb-1"><strong>Administration Office:</strong> Opens daily at <strong>11:00 AM</strong></p>
+                    <p class="mb-0 text-danger fw-semibold">
+                        <i class="fa-solid fa-bell me-1"></i> <strong>Snack Donations & Visits:</strong> Monday to Saturday from <strong>3:00 PM onwards</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <a href="https://www.google.com/search?q=sir+kasturchand+daga+bal+sadan+kamptee" target="_blank" class="btn btn-outline-primary rounded-pill py-2">
+                    <i class="fa-solid fa-map-location-dot me-1"></i> Get Google Maps Driving Directions
+                </a>
+            </div>
+        </div>
+
+        <!-- Contact & Inquiry Form -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+                <h4 class="fw-bold text-dark mb-2">Send an Inquiry or Message</h4>
+                <p class="text-muted small mb-4">Our Lakad Ganj office staff will review and respond promptly.</p>
+
+                <form action="{{ url_for('api_submit_contact') }}" method="POST">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Your Name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Phone Number</label>
+                            <input type="tel" name="phone" class="form-control" placeholder="10-digit Mobile">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="name@example.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Subject</label>
+                            <select name="subject" class="form-select">
+                                <option value="Snack Donation Query" selected>Snack Donation (3 PM+) Query</option>
+                                <option value="Birthday Celebration Booking">Birthday Celebration Booking</option>
+                                <option value="School Supplies / Material Donation">Educational Supplies Donation</option>
+                                <option value="Volunteer Opportunity">Volunteer Inquiry</option>
+                                <option value="General Question">General Question</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Your Message <span class="text-danger">*</span></label>
+                        <textarea name="message" class="form-control" rows="4" placeholder="How can we assist you?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom w-100 py-3 rounded-pill fw-bold shadow-sm">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Submit Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}Donate Snacks (Mon-Sat 3 PM+) | Sir Kasturchand Daga Bal Sadan Kamptee{% endblock %}
+
+{% block content %}
+<div class="bg-primary-custom text-white py-5">
+    <div class="container text-center">
+        <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fa-solid fa-cookie-bite me-1"></i> SPECIAL AFTERNOON NUTRITION PROGRAM
+        </span>
+        <h1 class="display-5 fw-extrabold mb-3">Afternoon Snack Donation & Visiting</h1>
+        <p class="lead opacity-90 mx-auto" style="max-width: 700px;">
+            "Donation towards children like snacks for this time is <strong>Monday to Saturday from 3:00 PM onwards</strong>."
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- Main Alert Card -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-5 border-start border-4 border-warning bg-light">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-danger text-white fw-bold">IMPORTANT NOTICE FROM ORPHANAGE</span>
+                    <span class="badge bg-white text-dark border">Timings & Guidelines</span>
+                </div>
+                <h4 class="fw-bold text-dark mb-2">Why Monday to Saturday from 3:00 PM onwards?</h4>
+                <p class="text-secondary small leading-relaxed mb-0">
+                    The 45 children of Sir Kasturchand Daga Bal Sadan attend school in Kamptee during the morning and early afternoon. They return home around 2:30 PM, freshen up, and gather together at <strong>3:00 PM for evening refreshments and snacks</strong>. Visiting during this window allows you to meet the children, distribute your treats personally, and enjoy their warm smiles and prayers!
+                </p>
+            </div>
+            <div class="col-lg-4 text-center mt-3 mt-lg-0 border-start ps-lg-4">
+                <div class="p-3 bg-white rounded-3 shadow-sm">
+                    <small class="text-muted d-block text-uppercase fw-bold">Active Children Count</small>
+                    <span class="display-5 fw-bold text-primary">45 Kids</span>
+                    <small class="text-muted d-block mt-1">Lakad Ganj, Kamptee Campus</small>
+                    <div class="d-flex flex-column gap-2 mt-2">
+                        <a href="{{ url_for('ai_assistant_page') }}" class="btn btn-sm btn-outline-primary rounded-pill">
+                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Use AI Snack Planner
+                        </a>
+                        <button type="button" class="btn btn-sm btn-success rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#whatsappShareModal">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Share on WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <!-- Left Column: Recommended Snack Checklist & Guidelines -->
+        <div class="col-lg-7">
+            <h4 class="fw-bold text-dark mb-4">
+                <i class="fa-solid fa-circle-check text-success me-2"></i> Recommended Snack Categories
+            </h4>
+
+            <div class="accordion custom-accordion mb-4" id="snacksAccordion">
+                {% for snack in recommended_snacks %}
+                <div class="accordion-item border-0 mb-3 shadow-sm rounded-3 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button {% if loop.index > 1 %}collapsed{% endif %} fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#snack{{ loop.index }}">
+                            <span class="badge bg-primary-subtle text-primary rounded-pill me-2">{{ loop.index }}</span>
+                            {{ snack.category }}
+                        </button>
+                    </h2>
+                    <div id="snack{{ loop.index }}" class="accordion-collapse collapse {% if loop.index == 1 %}show{% endif %}" data-bs-parent="#snacksAccordion">
+                        <div class="accordion-body bg-light small">
+                            <p class="mb-2"><strong>Items to bring:</strong> {{ snack.items }}</p>
+                            <p class="text-muted mb-0"><strong>Health & Joy value:</strong> {{ snack.benefits }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Health & Safety Protocols -->
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-white">
+                <h5 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-shield-virus text-primary me-2"></i> Health & Food Safety Guidelines
+                </h5>
+                <ul class="list-unstyled text-secondary small mb-0">
+                    <li class="d-flex align-items-start gap-2 mb-2">
+                        <i class="fa-solid fa-check text-success mt-1"></i>
+                        <span><strong>100% Vegetarian:</strong> All snack items brought to Bal Sadan must be pure vegetarian.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2 mb-2">
+                        <i class="fa-solid fa-check text-success mt-1"></i>
+                        <span><strong>Fresh & Hygienic:</strong> If bringing hot snacks (poha, samosa, upma), ensure they are freshly prepared on the day of delivery from reputable vendors.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2 mb-2">
+                        <i class="fa-solid fa-check text-success mt-1"></i>
+                        <span><strong>Expiry Check:</strong> Please verify expiration dates on packaged biscuits, juices, and milk cartons.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2 mb-2">
+                        <i class="fa-solid fa-check text-success mt-1"></i>
+                        <span><strong>Advance Notice Appreciated:</strong> Scheduling your slot below helps our staff avoid overlapping snack meals on the same afternoon.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Schedule Drop-off & Visit Form -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-lg rounded-4 p-4 bg-white sticky-top" style="top: 100px;">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="icon-circle bg-warning-subtle text-warning">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-0">Schedule Snack Drop-off</h5>
+                        <small class="text-muted">Directly recorded in Bal Sadan Database</small>
+                    </div>
+                </div>
+
+                <form action="{{ url_for('api_book_visit') }}" method="POST" id="visitBookingForm">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-dark">Your Full Name <span class="text-danger">*</span></label>
+                        <input type="text" name="visitor_name" class="form-control" placeholder="e.g. Ramesh Sharma" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold text-dark">Phone Number <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control" placeholder="10-digit Mobile" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold text-dark">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Optional">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold text-dark">Visit Date <span class="text-danger">*</span></label>
+                            <input type="date" name="visit_date" id="visit_date_input" class="form-control" required>
+                            <small class="text-muted" style="font-size: 11px;">Mon to Sat preferred</small>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold text-dark">Time Slot (3 PM+) <span class="text-danger">*</span></label>
+                            <select name="time_slot" class="form-select" required>
+                                <option value="3:00 PM - 4:00 PM" selected>3:00 PM - 4:00 PM</option>
+                                <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                                <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-dark">Occasion / Purpose <span class="text-danger">*</span></label>
+                        <select name="purpose" class="form-select" required>
+                            <option value="Snack Distribution" selected>Afternoon Snack Distribution</option>
+                            <option value="Birthday Celebration">Birthday Celebration (Cake & Snacks)</option>
+                            <option value="Wedding Anniversary">Anniversary Treat</option>
+                            <option value="Memorial / In Remembrance">In Memory of Loved One</option>
+                            <option value="General Visit & Tour">General Visit & Snack Sharing</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-dark">Snack Items You Plan to Bring</label>
+                        <textarea name="snack_items" class="form-control" rows="2" placeholder="e.g. 50 Bananas, 45 Frooti cartons, and 45 Marie biscuit packets"></textarea>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold text-dark">Number of Visitors</label>
+                            <input type="number" name="guest_count" class="form-control" value="2" min="1" max="15">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold text-dark">Need Assistance?</label>
+                            <a href="tel:{{ org_phone }}" class="btn btn-outline-secondary w-100 btn-sm py-2">
+                                <i class="fa-solid fa-phone me-1"></i> Call 077095...
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-dark">Additional Notes (Optional)</label>
+                        <input type="text" name="notes" class="form-control" placeholder="Any special arrangements?">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2 rounded-pill fw-bold shadow-sm">
+                        <i class="fa-solid fa-check-circle me-1"></i> Confirm Visit & Snack Slot
+                    </button>
+                    <small class="text-muted d-block text-center mt-2" style="font-size: 11px;">
+                        Location: Lakad Ganj, Kamptee 441001. A confirmation ID will be generated immediately.
+                    </small>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Set min date to today
+    document.addEventListener("DOMContentLoaded", function() {
+        const dateInput = document.getElementById('visit_date_input');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+    });
+</script>
+{% endblock %}

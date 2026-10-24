@@ -1,0 +1,376 @@
+/* Sir Kasturchand Daga Bal Sadan - Custom Stylesheet */
+:root {
+    --primary: #0E8388;
+    --primary-dark: #09595D;
+    --primary-light: #2E97A7;
+    --accent: #E67E22;
+    --accent-hover: #D35400;
+    --gold: #F39C12;
+    --navy: #0F172A;
+    --navy-light: #1E293B;
+    --bg-warm: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --text-main: #334155;
+    --text-heading: #0F172A;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background-color: var(--bg-warm);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-name {
+    font-family: var(--font-heading);
+    color: var(--text-heading);
+}
+
+/* Announcement Bar */
+.top-announcement-bar {
+    background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+    border-bottom: 2px solid var(--accent);
+}
+
+.pulse-badge {
+    animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Navbar */
+.main-navbar {
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.brand-logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(14, 131, 136, 0.3);
+}
+
+.brand-logo-icon.small-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+}
+
+.brand-name {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--navy);
+    line-height: 1.2;
+}
+
+.brand-subtext {
+    font-size: 0.72rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
+.nav-link {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #475569 !important;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary) !important;
+    background-color: rgba(14, 131, 136, 0.08);
+}
+
+.special-nav-link {
+    color: #9A3412 !important;
+    background-color: #FFEDD5;
+}
+
+.special-nav-link:hover {
+    background-color: #FED7AA;
+}
+
+.ai-nav-pill {
+    background: linear-gradient(135deg, rgba(14, 131, 136, 0.1) 0%, rgba(230, 126, 34, 0.15) 100%);
+    color: var(--navy) !important;
+}
+
+/* Custom Buttons */
+.btn-primary-custom {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #053b3e 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(14, 131, 136, 0.35);
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    border: none;
+}
+
+.btn-accent:hover {
+    background: var(--accent-hover);
+    color: #fff;
+}
+
+/* Hero Section */
+.hero-section {
+    background: radial-gradient(circle at 10% 20%, rgba(14, 131, 136, 0.08) 0%, rgba(248, 250, 252, 0) 80%);
+}
+
+.hero-title {
+    line-height: 1.15;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-navy {
+    color: var(--navy);
+}
+
+.bg-navy {
+    background-color: var(--navy);
+}
+
+.bg-primary-custom {
+    background: linear-gradient(135deg, #0c7479 0%, #08494c 100%);
+}
+
+.snack-notice-card {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 16px;
+}
+
+.notice-icon-box {
+    width: 48px;
+    height: 48px;
+    background: #FEF3C7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Floating AI Chat Widget */
+.floating-ai-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1050;
+}
+
+.floating-ai-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(14, 131, 136, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.floating-ai-btn:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 12px 30px rgba(230, 126, 34, 0.5);
+}
+
+.ai-badge-pulse {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: badgePulse 1.6s infinite;
+}
+
+@keyframes badgePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.ai-chat-window {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 370px;
+    max-width: 90vw;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.25s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-chat-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
+}
+
+.ai-avatar-badge {
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.ai-chat-body {
+    height: 300px;
+    overflow-y: auto;
+    background: #F8FAFC;
+}
+
+.ai-bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 85%;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.ai-bubble.incoming {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    color: var(--text-heading);
+    border-bottom-left-radius: 2px;
+}
+
+.ai-bubble.outgoing {
+    background: var(--primary);
+    color: #ffffff;
+    border-bottom-right-radius: 2px;
+}
+
+/* Timeline */
+.timeline-dot {
+    position: absolute;
+    left: -21px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+}
+
+/* Cards & Interactions */
+.inventory-card {
+    transition: all 0.3s ease;
+}
+
+.inventory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.donation-option-btn {
+    border-width: 2px;
+    transition: all 0.2s ease;
+}
+
+.btn-check:checked + .donation-option-btn {
+    background-color: rgba(14, 131, 136, 0.1);
+    border-color: var(--primary);
+}
+
+.amount-preset-btn.active {
+    background-color: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* Footer */
+.footer-custom {
+    background-color: #0B1120;
+    color: #94A3B8;
+}
+
+.footer-links a {
+    color: #94A3B8;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a:hover {
+    color: var(--primary-light);
+}
+
+/* Print Stylesheet for Receipt */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    .top-announcement-bar,
+    .main-navbar,
+    .floating-ai-container,
+    .footer-custom,
+    .d-print-none {
+        display: none !important;
+    }
+    .receipt-paper {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        margin: 0 !important;
+        padding: 20px !important;
+    }
+}
